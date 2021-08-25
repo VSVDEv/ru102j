@@ -52,11 +52,13 @@ public class MetricDaoRedisZsetImpl implements MetricDao {
         String metricKey = RedisSchema.getDayMetricKey(siteId, unit, dateTime);
         Integer minuteOfDay = getMinuteOfDay(dateTime);
 
-        Pipeline pipeline = jedis.pipelined();
-        pipeline.zadd(metricKey, minuteOfDay, new MeasurementMinute(value,
-            minuteOfDay).toString());
-        pipeline.expire(metricKey, METRIC_EXPIRATION_SECONDS);
-        pipeline.sync();
+       // Pipeline pipeline = jedis.pipelined();
+       // pipeline.zadd(metricKey, minuteOfDay, new MeasurementMinute(value, minuteOfDay).toString());
+        jedis.zadd(metricKey, minuteOfDay, new MeasurementMinute(value, minuteOfDay).toString());
+
+        //pipeline.expire(metricKey, METRIC_EXPIRATION_SECONDS);
+       // pipeline.sync();
+        jedis.expire(metricKey, METRIC_EXPIRATION_SECONDS);
         // END Challenge #2
     }
 
