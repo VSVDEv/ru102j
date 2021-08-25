@@ -31,7 +31,7 @@ public class SiteGeoDaoRedisImplTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() {
         String password = HostPort.getRedisPassword();
 
         if (password.length() > 0) {
@@ -125,7 +125,7 @@ public class SiteGeoDaoRedisImplTest {
     }
 
     // Challenge #5
-    @Ignore
+ //   @Ignore
     @Test
     public void findByGeoWithExcessCapacity() {
         SiteGeoDao siteDao = new SiteGeoDaoRedisImpl(jedisPool);
